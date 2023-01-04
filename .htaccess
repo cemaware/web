@@ -1,0 +1,33 @@
+ErrorDocument 500 /500.php
+RewriteEngine on
+Options +FollowSymLinks
+# rewrite rules
+RewriteRule discord discord.php
+RewriteRule badges badges.php
+RewriteRule leaderboards leaderboards.php
+
+# account
+RewriteRule friends/requests friends/requests.php
+RewriteRule account/settings account/settings.php
+RewriteRule account/customize account/customize.php
+RewriteRule account/currency account/currency.php
+RewriteRule account/portal account/portal.php
+RewriteRule account/notifications account/notifications.php
+RewriteRule account/levels account/levels.php
+
+#rewrites with variables
+RewriteRule profile/(.*) user.php?id=$1
+RewriteRule forum/c/(.*?)/(.*?)$ forum/category.php?id=$1&page=$2
+RewriteRule forum/moderate/(.*?)/(.*?)/(.*?)$ forum/moderate.php?type=$1&action=$2&id=$3
+RewriteRule forum/thread/(.*)/(.*) forum/thread.php?id=$1&page=$2
+RewriteRule forum/create/(.*) forum/create.php?id=$1
+RewriteRule ^forum/reply/([^/]*)/?(.*)$ forum/reply.php?id=$1&quote=$2
+RewriteRule club/view/(.*) club/view.php?id=$1
+RewriteRule friend/(.*?)/(.*) friends/request.php?action=$1&id=$2
+RewriteRule friends/all/(.*) friends/user.php?user=$1
+RewriteRule ^market/([0-9]+) market/index.php?category=$1
+RewriteRule ^market/item/(.*) market/item.php?item_id=$1
+RewriteRule account/invites/?(.*)$ account/invites.php?invite=$1
+
+ErrorDocument 404 /404.php
+ErrorDocument 403 /404.php

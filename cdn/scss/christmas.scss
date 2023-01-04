@@ -1,0 +1,71 @@
+$christmas-green: rgb(38, 166, 33);
+$christmas-red: rgb(193, 48, 48);
+
+:root {
+
+  --bs-dark: rgb(15, 18, 22);
+  --bs-gray-900: rgb(31, 33, 39);
+}
+
+.snowflakes {
+  overflow: hidden;
+}
+
+.bg-navbar {
+  background-color: $christmas-red;
+}
+
+.bg-secondary-navbar {
+  background-color: $christmas-green !important;
+}
+
+.bg-theme {
+  background-color: $christmas-green;
+}
+
+blockquote {
+   border-color: $christmas-red;
+}
+
+.card-header {
+  &.bg-theme {
+    border-color: darken($christmas-green, 15%);
+  }
+}
+
+a {
+  color: $christmas-red;
+
+  &:hover {
+    color: darken($christmas-red, 15%);
+  }
+}
+
+.btn-theme {
+  background-color: $christmas-red;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:disabled {
+    background-color: darken($christmas-red, 15%) !important;
+    outline: none;
+  }
+
+  &.active {
+    background-color: darken($christmas-red, 15%) !important;
+    outline: none;
+  }
+}
+
+
+
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  background-color: $christmas-red;
+}
+
+.text-theme {
+  color: $christmas-red !important;
+}
