@@ -143,8 +143,6 @@ $level = $cema->determineUserLevel($user->exp);
                   <?= $postCount ?>
                </span>
             </div>
-            <?= $user->created?>
-            <?= time() ?>
             <div class="d-flex justify-content-between">
                <div>
                   <span class="fas fa-user-plus"></span>
