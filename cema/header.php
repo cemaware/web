@@ -6,6 +6,7 @@ if ($cema->auth()) {
    $cema->update_("users", ["updated" => date('Y-m-d H:i:s')], ["id" => $_SESSION['UserID']]);
 }
 session_regenerate_id();
+// test message
 ?>
 
 <!DOCTYPE html>
