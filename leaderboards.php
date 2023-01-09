@@ -29,11 +29,13 @@ $cema->requireAuth();
                $index++;
             ?>
                <div class="row bg-secondary my-1 rounded py-2">
-                  <div class="col-1 text-center d-flex align-items-center justify-content-center">
+                  <div class="col-1 text-center d-flex align-items-center justify-content-center fs-3">
                      #<?= $index ?>
                   </div>
                   <div class="col-1">
-                     <img src="/cdn/img/avatar/thumbnail/<?= $user->avatar_link ?>.png" class="img-fluid bg-dark rounded" alt="<?= $user->name ?>">
+                     <a href="/profile/<?= $user->id ?>">
+                        <img src="/cdn/img/avatar/thumbnail/<?= $user->avatar_link ?>.png" class="img-fluid bg-dark rounded" alt="<?= $user->name ?>">
+            </a>
                   </div>
                   <div class="col-8 d-flex align-items-center">
                      <a href="/profile/<?= $user->id ?>">
@@ -58,7 +60,7 @@ $cema->requireAuth();
                $index++;
             ?>
                <div class="row bg-secondary my-1 rounded py-2">
-                  <div class="col-1 text-center d-flex align-items-center justify-content-center">
+                  <div class="col-1 text-center d-flex align-items-center justify-content-center fs-1">
                      #<?= $index ?>
                   </div>
                   <div class="col-1">
