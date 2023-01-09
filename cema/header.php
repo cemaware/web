@@ -2,8 +2,12 @@
 
 include 'cema.php';
 if ($cema->auth()) {
-   $user = $cema->local_info($_SESSION['UserID']);
    $cema->update_("users", ["updated" => date('Y-m-d H:i:s')], ["id" => $_SESSION['UserID']]);
+   $user = $cema->local_info($_SESSION['UserID']);
+   if(strtotime($user->last_payout) + (24 * 60 * 60) < time()) {
+      $cubes = $cema->update_("users", ["cubes" => ($cema->local_info()->cubes + 15), "last_payout" => date("Y-m-d H:i:s")], ["id" => $cema->local_info()->id]);
+   }
+   $user = $cema->local_info($_SESSION['UserID']);
 }
 session_regenerate_id();
 ?>
@@ -222,31 +226,26 @@ session_regenerate_id();
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                            <li class="nav-item">
                               <a class="nav-link" href="/profile/<?= $_SESSION['UserID']; ?>">
-                                 <i class="far fa-user-circle"></i>
                                  Profile
                               </a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="/friends/requests">
-                                 <i class="far fa-user-friends"></i>
                                  <?= $friendsText ?>
                               </a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="/account/invites">
-                                 <i class="far fa-plus"></i>
                                  Invites
                               </a>
                            </li>
                            <li class="nav-item">
                               <a href="/account/customize/" class="nav-link">
-                                 <i class="far fa-user-edit"></i>
                                  Customize
                               </a>
                            </li>
                            <li class="nav-item">
                               <a href="/leaderboards" class="nav-link">
-                                 <i class="fa far fa-list"></i>
                                  Leaderboards
                               </a>
                            </li>
@@ -255,7 +254,6 @@ session_regenerate_id();
                            ?>
                               <li class="nav-item">
                                  <a class="nav-link" href="/admin">
-                                    <i class="fad fa-gavel"></i>
                                     Admin
                                  </a>
                               </li>
@@ -266,22 +264,39 @@ session_regenerate_id();
                         <ul class="navbar-nav">
                            <li class="nav-item">
                               <a href="/account/levels" class="nav-link">
-                                 <i class="far fa-rocket"></i>
                                  Leveling
                               </a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="/account/currency" title="<?= $user->cubes ?>">
-                                 <i class="far fa-cubes"></i>
-                                 <?= $cema->number($user->cubes) ?>
-                              </a>
-                           </li>
-                           <li class="nav-item">
                               <a class="nav-link" href="/account/portal">
-                                 <i class="far fa-hammer"></i>
-                                 Developer
+                                 Developer Portal
                               </a>
                            </li>
+                           <?php
+                           // calculate time until next payout
+                           $now = new DateTime();
+
+                           $future_date = new DateTime($cema->local_info()->last_payout);
+
+                           $hours = 24;
+
+                           $future_date = (clone $future_date)->add(new DateInterval("PT{$hours}H"));
+
+                           $interval = $future_date->diff($now);
+
+                           $timeUntil = $interval->format("%h hours, %i minutes");
+                           ?>
+                           <li class="nav-item">
+                              <a class="nav-link" href="/account/currency" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $timeUntil ?> until next payout.">
+                                 <i class="far fa-cubes"></i>
+                                 <?= number_format($user->cubes) ?>
+                              </a>
+                           </li>
+                           <script>
+                              $(document).ready(function() {
+                                 $('[data-bs-toggle="tooltip"]').tooltip();
+                              });
+                           </script>
                         </ul>
                      </div>
                   </div>
