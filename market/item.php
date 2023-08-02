@@ -194,8 +194,10 @@ if (!$item->id) {
             <div class="mb-2"></div>
             <div class="d-flex align-items-center gap-3 fs-5">
                <div class="d-flex align-items-center gap-1 fs-5">
-                  <a href="#"><i class="fa fa-heart text-danger"></i></a>
-                  <span><?= $likes ?></span>
+                  <form action="/market/like.php" method="POST">
+                     <input type="hidden" name="id" value="<?=$item->id?>">
+                     <button id="like" class="btn text-white" name="submit"><i class="far fa-heart text-danger"></i> <?= $likes ?></button>
+                  </form>
                </div>
                <div class="d-flex align-items-center gap-1 fs-5">
                   <a href="#"><i class="fa fa-list text-secondary"></i></a>
@@ -261,6 +263,9 @@ if (!$item->id) {
    </div>
    <div class="col"></div>
 </div>
+<script>
+
+</script>
 
 <?php
 if ($cema->auth() && $cema->isAdmin()) {
@@ -303,7 +308,6 @@ if ($cema->auth() && $cema->isAdmin()) {
                console.log("slow down buster");
             }
             if (Http.responseText == "success") {
-               wait(0.5);
                $("#item").html("<img src='/cdn/img/shop/<?= md5($item->id) ?>.png?<?= time() ?>' style='width:100%;' class='img-fluid' />");
             }
          }

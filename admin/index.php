@@ -4,7 +4,9 @@ include("$_SERVER[DOCUMENT_ROOT]/cema/header.php");
 $cema->requireAdmin();
 ?>
 
-Real
+<h4>
+   Admin Panel
+</h4>
 
 <?php
 
